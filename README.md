@@ -1,4 +1,4 @@
-# Learning Chemical Reactions with Simulation Based Inference
+# Learning Chemical Reactions with Simulation Based Inference (SBI)
 
 This project applies **Bayesian simulation-based inference (SBI)** to identify chemical reaction mechanisms from sparse kinetic time-series data. It builds on the 2023 *Nature* paper ["Organic reaction mechanism classification using machine learning"](https://www.nature.com/articles/s41586-022-05639-4) and explores alternative SBI methods as outlined in the 2024 arXiv review ["A Comprehensive Guide to Simulation-based Inference in Computational Biology"](https://arxiv.org/abs/2409.19675).
 
