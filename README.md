@@ -6,7 +6,12 @@ This project applies **Bayesian simulation-based inference (SBI)** to identify c
 To infer the underlying chemical reaction mechanism from time-series concentration data by using simulation-based inference pipelines, neural density estimators, and mechanistic simulators (ODE-based).
 
 ## Methods
-- **Data Generation**: Simulated time-series data from 76,000 kinetic ODE models with randomized rate constants, noisy observations, and variable initial concentrations.
+- **Data Generation**:
+- **Simulator & Prior Design**:
+- **Neural Density Estimation**:
+- **Inference Algorithms**:
+- **Posterior Sampling**:
+- **Model Diagnostics & Validation**:
 
 
 ## Case Studies
