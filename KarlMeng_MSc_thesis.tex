@@ -19,49 +19,28 @@
 % - year              should be formatted as a 4-digit year of submission
 %   (so 2014 rather than the academic year, say 2013/14 say).
 
-\documentclass[ % the name of the author
-                    author={Daniel Page},
-                % the name of the supervisor
-                supervisor={Dr. Andrew Calway},
-                % the degree programme
-                    degree={MSc},
-                % the dissertation    title (which cannot be blank)
-                     title={Some Structural Guidelines for Data Science MSc Theses, Including Those With Long Titles that Run Across Multiple Lines on the Front Page},
-                % the dissertation subtitle (which can    be blank)
-                  subtitle={And those including an optional subtitle too, for good measure},
-                % the dissertation     type
-                      type={},
-                % the year of submission
-                      year={2021}]{dissertation}
+% !TeX program = pdflatex
+% !chktex-file 8
+
+\documentclass{dissertation}
+
+% Pass parameters manually using macros instead of documentclass options
+\newcommand{\setdissertationdata}{
+  \pgfkeys{/dissertation/.cd,
+    author={Karl Meng},
+    supervisor={Dr. Dennis Prangle},
+    degree={MSc},
+    title={Simulation-Based Deep Learning for Chemical Reaction Mechanism Classification},
+    type={},
+    year={2025}
+  }
+}
+
+\setdissertationdata  % Set the metadata before document begins
+
 
 \begin{document}
 
-% =============================================================================
-
-% This section simply introduces the structural guidelines.  It can clearly
-% be deleted (or commented out) if you use the file as a template for your
-% own dissertation: everything following it is in the correct order to use 
-% as is.
-
-\section*{Prelude}
-\thispagestyle{empty}
-
-
-A typical MSc thesis will be structured according to a fairly standard sequence of 
-sections, and one example is shown here.  However, it is hard and perhaps even 
-counter-productive to generalise: the goal of this document is {\em not}\/ to be prescriptive, to show you how you {\em must} structure your thesis; rather it is to simply to act as a guideline, to show you how you {\em could} structure your thesis.  In particular, each chapter's indicated page-count is
-important but {\em not}\/ absolute: the aim is simply to highlight that a 
-clear and concise description is better than a rambling alternative that makes
-it hard to separate important content and facts from irrelevant trivia.
-
-You can use this document as a \LaTeX-based 
-template for your own thesis by simply deleting extraneous sections
-and content, and adding your own text. If you do that, we recommend using BibTeX
-to deal with the associated bibliography. 
-You may want to use Overleaf (an online cloud-based collaborative \LaTeX platform).
-
-
-The words ``thesis'' and ``dissertation'' are used interchangeably here. All active hyperlinks in the PDF file are rendered in the same shade of dark blue. 
 
 
 
@@ -94,7 +73,6 @@ The words ``thesis'' and ``dissertation'' are used interchangeably here. All act
 \listoffigures
 \listoftables
 \listofalgorithms
-\lstlistoflistings
 
 % The following sections are part of the front matter, but are not generated
 % automatically by LaTeX; the use of \chapter* means they are not numbered.
@@ -146,20 +124,7 @@ an might be as follows:
 
 % -----------------------------------------------------------------------------
 
-\chapter*{Summary of Changes}
 
-{\bf A conditional section, of at most $1$ page} 
-\vspace{1cm} 
-
-If (and only if) the dissertation represents a resubmission (e.g., as the result of
-a resit), then this section is compulsory: the content should summarise all
-non-trivial changes made to the initial submission.  Otherwise you can
-omit it, since {\bf a summary of this type is only needed for resubmissions}.
-
-When included, the section will ideally be used to highlight additional
-work completed, and address criticism raised in any associated feedback.
-Clearly it is difficult to give generic advice about how to do so, but
-an example might be as follows:
 
 \begin{quote}
 \noindent
@@ -289,7 +254,7 @@ Dave Cliff writes here to say huge thanks to his colleague Dr Dan Page for shari
 
 % -----------------------------------------------------------------------------
 
-\chapter{Introduction}
+\chapter{Introduction (2 pages)}
 \label{chap:introduction}
 
 {\bf A compulsory chapter, roughly 10\% of the total page-count}
@@ -321,135 +286,268 @@ summarises the aims, objectives, {\bf and achievements}\/ of your work.
 \chapter{Background}
 \label{chap:background}
 
-{\bf A compulsory chapter, roughly 20\% of the total page-count}
-\vspace{1cm} 
+\section{Limitations of Classical Kinetic Analysis}
 
-\noindent
-This chapter is intended to describe the technical basis on which execution
-of the project depends.  The goal is to provide a detailed explanation of
-the specific problem at hand, and existing work that is relevant such as an
-existing algorithm that you use, alternative solutions proposed, supporting
-technologies, and relevant literature. The literature you include should cover 
-appropriate peer-reviewed academic publications and books, and maybe also 
-news and current-affairs articles published in reputable sources such as 
-{\em The Economist} magazine or {\em The Financial Times} newspaper. 
+Mechanistic insights underpin sustainable optimization in chemical processes. A rigorous understanding of how substrates are transformed into products under catalytic conditions remains indispensable for the rational design of efficient chemical processes. Recent process-systems studies have demonstrated that even modest mechanistic enhancements in selectivity can result in substantial reductions in energy consumption and solvent waste at industrial scales, underscoring the strategic value of mechanistic understanding for sustainable manufacturing \cite{Baltussen2022}.\\
 
-Your thesis should include complete set of references/bibliography: everything that you cite should be in there, in full. This means including the publisher's name for anything that is a book; the editors and title of books that a paper appears in as one item in a larger collection (e.g. proceedings volumes and/or thematic edited collections) and the relevant page-numbers; and so on. Put most simply, we require and expect your references to look like the references in a published peer-reviewed academic paper, so you can work out whether you still have work to do by comparing your references to the reference-list on the publications that you're working from. 
+Traditional kinetic analyses rely predominantly on simplified rate laws and expert-driven model selection---approaches increasingly insufficient for capturing the complexity and transient behavior inherent in modern reaction networks \cite{Stratton2023}. Classical analytical methods typically fall into three main categories: (i)~\emph{initial‐rate} methods based on the differential form of the rate law, (ii)~\emph{integrated} rate‐law fitting that exploits analytic solutions of ordinary differential equations (ODEs), and (iii)~linearising transformations such as the Lineweaver–Burk and Eadie–Hofstee plots \cite{Laidler1987,Espenson2002}. These techniques have proved invaluable for unimolecular and simple bimolecular reactions but exhibit fundamental limitations when extended to contemporary catalytic networks that feature multiple resting states, competing off‑cycle deactivation, or temporal changes in catalyst speciation.
 
-Note there is a subtle difference from
-this and a full-blown literature {\em survey}.  The latter might try
-to capture and organise (e.g., categorise somehow) {\em all}\/ related work,
-potentially offering meta-analysis, whereas here the goal is simply to
-ensure that your thesis is self-contained.  Put another way, after reading 
-this chapter an intelligent non-expert reader with no prior knowledge of your project should have obtained enough background to 
-understand what {\em you}\/ have done (by reading subsequent sections), and then 
-accurately assess your work.  You might view an additional goal as giving 
-the reader confidence that you are able to absorb, understand and clearly 
-communicate highly technical material.
-
-Just as there is no single ideal structure for an MSc thesis, there is no one correct name for this chapter. You could just call it {\em Background}\/ if you wish, or {\em Technical Background}. Or if you feel you have a lot to say you could split this chapter into two: you might have your first three chapters being:
-\begin{enumerate}
-\item Introduction
-\item Context
-\item Related Work
-\end{enumerate}
-\noindent
-But if you prefer to use a more concise structure, you could instead use:
-\begin{enumerate}
-\item Introduction: Contextual Background
-\item Technical Background
-\end{enumerate}
-\noindent
-The choice is yours. 
-
-
-The key thing is that by the end of these first two or three chapters you have told the reader everything they need to know so that they can understand the rest of your thesis. This is particularly important because at least one of the people who actually examines your thesis will be a UoB academic, one of our lecturers or professors, who you can assume knows almost nothing about the specifics of what work you have done, and who is given a copy of your thesis to mark. So what you write has to adequately explain things to that examiner. You can safely assume that whoever examines your thesis is numerate, intelligent, understands programming and data analytics etc, but you cannot safely assume that their specific individual expertise is a perfect match to the topic of your thesis (it's in that sense that the examiner is a {\em non-expert}). So, the person you write for, your {\em audience}, should be that undefined group of academics who might possibly examine your thesis: if you write for that audience and do a good job, your thesis should be understandable by a wide range of people, including potential employers and colleagues in the world of work.
 
 % -----------------------------------------------------------------------------
 
-\chapter{Execution}
-\label{chap:execution}
-
-{\bf A topic-specific chapter, roughly 30\% of the total page-count}
-\vspace{1cm} 
+\chapter{Simulation Data Generation}
+\label{chap:simulation}
 
 \noindent
-This chapter is intended to describe what you did: the goal is to explain
-the main activity or activities, of any type, which constituted your work 
-during the project.  The content is highly topic-specific. For some 
-projects it will make sense to split the content into two main sections, or maybe even into two separate chapters: one 
-will discuss the design of something, including any rationale or decisions made, 
-and the other will discuss how this design was realised via some form of 
-implementation.  You could instead give this chapter the title ``Design and Implementation"; or you might split this content into two chapters, one titled ``Design" and the other ``Implementation" .
+This chapter delineates the end‑to‑end simulation pipeline to generate the kinetic dataset used throughout this study. Section~\ref{sec:ODE_formalism} formulates twenty catalytic mechanisms into ordinary differential equation (ODE) models. Section~\ref{sec:parameter_space_sampling} samples kinetic parameters from broad logarithmic distributions, followed by mechanism-specific filtering criteria in Section~\ref{sec:mechanism_specific_parameter_selection_criteria} to ensure physical plausibility. Section~\ref{sec:numerical_integration} integrates valid parameters using the LSODA solver under strict tolerances to produce high-resolution concentration–time. In Section~\ref{sec:initial_condition_design}, each parameter set is expanded with designed initial conditions to enhance data diversity. Subsequently, Section~\ref{sec:time_resolved_tensor_construction} converts these trajectories into standardized, time-resolved tensors suitable for model training. Finally, Section~\ref{sec:final_dataset_integration} aggregates, normalizes, and partitions the dataset into structured training, validation, and test sets.
 
-Note that it is common to include evidence of ``best practice'' project 
-management (e.g., use of version control, choice of programming language 
-and so on).  Rather than simply a rote list, make sure any such content 
-is useful and/or informative in some way: for example, if there was a 
-decision to be made then explain the trade-offs and implications 
-involved.
+\\
 
-\section{Example Section}
+\section{ODE Formalism for Catalytic Mechanisms}
+\label{sec:ODE_formalism}
 
-This is an example section; 
-the following content is auto-generated dummy text.
-\lipsum
+The simulation module generates a comprehensive kinetic dataset comprising substrate and product concentration–time profiles for twenty catalytic reaction mechanisms (\textbf{M1–M20}). As illustrated in Figure~\ref{fig:catalytic_mechanisms_overview}, these mechanisms are categorized into four classes based on their kinetic and mechanistic features: 
 
-\subsection{Example Sub-section}
+\begin{enumerate}
+    \item \textbf{Core mechanism}(\textbf{M1})\footnote{\textbf{Core mechanism} – The canonical single-site catalytic cycle: a monomeric catalyst (\emph{cat}) reversibly binds one substrate molecule (\emph{S}) to form the Michaelis–Menten complex (\emph{catS}); subsequent turnover releases product (\emph{P}) and regenerates free catalyst, with no catalyst–catalyst interactions, activation, or deactivation pathways involved.}
+    , representing the classical Michaelis–Menten catalytic cycle.
 
-\begin{figure}[t]
-\centering
-foo
-\caption{This is an example figure.}
-\label{fig}
+    \item \textbf{Mechanisms with bicatalytic interactions} (\textbf{M2–M5})\footnote{\textbf{Mechanisms with bicatalytic steps} – Pathways in which two catalytically competent species interact before or during turnover; such bimolecular catalyst steps add non-linear kinetics and cooperativity beyond the core cycle.}, including catalyst dimerization to produce active dimers and interactions between distinct catalytic species.
+
+
+    \item \textbf{Mechanisms with catalyst activation steps} (\textbf{M6–M8})\footnote{\textbf{Mechanisms with catalyst activation steps} – Extensions of the core cycle that introduce a pre-equilibrium converting an initially dormant precursor into an active form, modulating the effective catalyst concentration and introducing an induction period.}, including precatalyst activation involving internal reorganisation, substrate-induced coordination, and ligand dissociation.
+
+    \item \textbf{Mechanisms with catalyst deactivation steps} (\textbf{M9–M20})\footnote{\textbf{Mechanisms with catalyst deactivation steps} – Networks incorporating irreversible or competitive routes that convert active catalyst or its intermediates into catalytically incompetent species; these steps attenuate turnover and impose upper limits on achievable conversion.}, in which active catalytic species or intermediates are irreversibly converted into inactive forms.
+\end{enumerate}
+
+
+The dynamics underlying each catalytic mechanism can be represented by a coupled system of ordinary differential equations (ODEs), which describe the temporal evolution of species concentrations:
+
+\begin{equation}
+\frac{d\mathbf{C}}{dt} = \mathbf{F}(\mathbf{C}, \boldsymbol{\theta}),
+\end{equation}
+where \( \mathbf{C} = ([S], [P], [\mathrm{cat}], [\mathrm{cat}S], [\mathrm{cat}_2], \ldots)^{T}\) represents the instantaneous species concentrations, and \( \boldsymbol{\theta} = (k_1, k_{-1}, k_2, k_{-2}, \ldots) \) denotes the kinetic parameters. The vector function \( \mathbf{F} \) incorporates mass-action kinetic relationships, enabling numerical integration of concentration–time profiles to characterize the kinetic behavior unique to each mechanism.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{data_generation/catalytic_mechanisms_types_M1_to_M20.pdf}
+    \caption{Overview of the twenty catalytic mechanisms}
+    \label{fig:catalytic_mechanisms_overview}
 \end{figure}
 
-\begin{table}[t]
-\centering
-\begin{tabular}{|cc|c|}
-\hline
-foo      & bar      & baz      \\
-\hline
-$0     $ & $0     $ & $0     $ \\
-$1     $ & $1     $ & $1     $ \\
-$\vdots$ & $\vdots$ & $\vdots$ \\
-$9     $ & $9     $ & $9     $ \\
-\hline
-\end{tabular}
-\caption{This is an example table.}
-\label{tab}
-\end{table}
 
-\begin{algorithm}[t]
-\For{$i=0$ {\bf upto} $n$}{
-  $t_i \leftarrow 0$\;
-}
-\caption{This is an example algorithm.}
-\label{alg}
-\end{algorithm}
+\section{Parameter-space Sampling}
+\label{sec:parameter_space_sampling}
 
-\begin{lstlisting}[float={t},caption={This is an example listing.},label={lst},language=C]
-for( i = 0; i < n; i++ ) {
-  t[ i ] = 0;
-}
-\end{lstlisting}
+Following the mathematical representation of each catalytic mechanism in section~\ref{sec:ODE_formalism}, kinetic parameter sets capable of generating kinetically distinct trajectories are identified by initially sampling a preliminary pool of $108{,}208 / 20 = 5{,}410$ candidate parameter vectors for each mechanism. The rate constant $k_i$ within these vectors are independently drawn from a log-uniform distribution defined by:
 
-This is an example sub-section;
-the following content is auto-generated dummy text.
-Notice the examples in Figure~\ref{fig}, Table~\ref{tab}, Algorithm~\ref{alg}
-and Listing~\ref{lst}.
-\lipsum
+\begin{equation}
+k_i \sim 10^{\mathcal{U}(\log_{10}10^{-5}, \log_{10}10^{5})},
+\end{equation}
+and subsequently rounded to three significant figures to eliminate numerical precision beyond physical and computational significance ~\cite{Novak2018}. This broad parameter range encompasses kinetic regimes from slow to rapid reactions, thereby ensuring diverse mechanistic behaviors within the dataset.\\
 
-\subsubsection{Example Sub-sub-section}
+Candidate parameter vectors are then evaluated through a multi-stage filtering procedure. Firstly, parameter sets must satisfy a maximum-yield criterion, requiring the substrate batch conversion at the reaction endpoint to fall within the range:
 
-This is an example sub-sub-section;
-the following content is auto-generated dummy text.
-\lipsum
+\begin{equation}
+X_S = \frac{[S]_0 - [S]_{t_{\text{max}}}}{[S]_0}, \quad \text{subject to} \quad 0.5 \leq X_S \leq 1.0,
+\end{equation}
+where $[S]_0$ is the initial substrate concentration at $t = 0$, and $[S]_{t_{\text{max}}}$ is the remaining substrate concentration at the end of the reaction time ($t_{\text{max}} = 100$). This criterion facilitates the generation of trajectories that capture meaningful kinetic transients rather than trivial conversions lacking mechanistic information. Additionally, each parameter vector is subjected to mechanism-specific filtering conditions detailed in section~\ref{sec:mechanism_specific_parameter_selection_criteria}, guaranteeing that the retained parameter sets exhibit uniquely identifiable mechanistic signatures. Finally, any parameter vectors appearing simultaneously in multiple catalytic mechanisms are discarded, thereby maintaining mutual exclusivity among mechanism labels within the dataset.\\
 
-\paragraph{Example paragraph.}
+In cases where direct log-uniform sampling proves inefficient—yielding prohibitively low acceptance rates—a biased sampling strategy is employed. For example, in mechanism \textbf{M2}, where kinetics depend on the balance between dimer association and dissociation, most parameter sets fail to achieve sufficient catalyst dimer (\emph{cat\textsubscript{2}}) accumulation. Physically, the association rates ($k_2$) must be sufficiently fast to generate a detectable dimer population, whereas the dissociation rates ($k_{-2}$) and turnover steps ($k_3$, $k_{-3}$) must remain balanced to avoid complete sequestration of active catalyst. Studies of organocatalytic systems demonstrate that inactive dimeric aggregates dominate under conditions where this balance is lost, severely limiting catalytic efficiency ~\cite{Ali2022, Ford2016}. This constraint drastically reduces the proportion of valid parameter set, a challenge previously highlighted by recent microkinetic sensitivity analyses ~\cite{Motagamwala2021}. Recent advances in rare-event sampling have demonstrated that tailored biasing strategies significantly enhance acceptance rates in rugged kinetic landscapes. For instance, Bolhuis developed an adaptive sampler that concentrates proposals in regions of parameter space likely to support productive aggregate formation, accelerating convergence by several orders of magnitude ~\cite{Bolhuis2025}.\\
 
-This is an example paragraph; note the trailing full-stop in the title,
-which is intended to ensure it does not run into the text.
+However, due to the absence of detailed chemical domain expertise and relevant industry experience, this study was unable to leverage mechanistic priors and externally calibrated rate estimates to guide the parameter-space sampling. Consequently, an iterative narrowing strategy was adopted, progressively refining each kinetic parameter range until both the accumulation of the catalyst dimer (\emph{cat\textsubscript{2}}) and the overall substrate conversion consistently satisfied the acceptance criteria. Specifically, given the computational constraints defined by the maximum of 500 sampling rounds, each evaluating up to 200 candidate parameter sets (resulting in a total maximum of 100,000 parameter evaluations), an acceptance rate exceeding approximately 5.41\% was necessary to ensure the collection of at least 5,410 valid parameter combinations per mechanism. After four iterative rounds of parameter-range refinement, the acceptance rate for mechanism \textbf{M2} improved significantly, reaching approximately 12.6\%. The final biased parameter sampling ranges for mechanism \textbf{M2} are explicitly given by:
+
+\begin{equation}
+\boldsymbol{\theta}^{\mathrm{M2}} 
+= (k_1, k_{-1}, k_2, k_{-2}, k_3, k_{-3})^{\top}, \quad
+\text{with} \quad
+\begin{array}{ll}
+k_1,\; k_{-1} &\sim \mathcal{U}(0.9, 1.8), \\
+k_2 &\sim \mathcal{U}(3.2, 5.0), \\
+k_{-2} &\sim \mathcal{U}(0.018, 0.043), \\
+k_3 &\sim \mathcal{U}(0.022, 0.13), \\
+k_{-3} &\sim \mathcal{U}(0.17, 1.5).
+\end{array}
+\label{eq:M2_biased_sampler}
+\end{equation}
+
+Although this iterative refinement strategy appear relatively crude compared to methods informed by mechanistic insight or empirical industrial benchmarks, it substantially improves the sampling efficiency while preserving the diversity of mechanistically valid kinetic profiles. Similar biased sampling procedures were applied to other catalytic reaction mechanisms exhibiting comparable sampling challenges, with each mechanism requiring tailored iterative narrowing based on its specific mechanistic constraints.
+
+
+
+\section{Mechanism-Specific Parameter Selection Criteria}
+\label{sec:mechanism_specific_parameter_selection_criteria}
+
+As described in section~\ref{sec:parameter_space_sampling}, after satisfying the initial maximum-yield criterion, each candidate parameter vector undergoes further evaluation based on additional mechanism-specific filtering conditions. These criteria are individually tailored to the unique kinetic characteristics and constraints of mechanisms \textbf{M1–M20}. Ultimately, parameter vectors are included in the final dataset only if their simulated kinetic trajectories fully meet these rigorous mechanism-specific post-filtering requirements.\\
+
+For the core mechanism (\textbf{M1}), all kinetic parameter sets are admissible without additional mechanistic restrictions. In contrast, for mechanisms with bicatalytic steps, such as \textbf{M2}, parameters are retained only if the fraction of the dimeric catalyst species (\emph{cat\textsubscript{2}}) exceeds 10\% of the total catalyst concentration within the substrate conversion interval. An illustrative example Figure~\ref{fig:M2_criterion} is provided below.
+
+\begin{figure}[H]
+    \hspace*{-5pt}
+    \includegraphics[width=0.95\textwidth]{data_generation/M2.pdf}
+    \caption{Example of filtering criterion for mechanism M2}
+    \label{fig:M2_criterion}
+\end{figure}
+
+The left panel shows the evolution of product concentration $P(t)$ over time. The right panel depicts the fraction of \emph{cat\textsubscript{2}} relative to the total catalyst concentration (\emph{cat} + \emph{catS} + 2·\emph{cat\textsubscript{2}}). The maximum fraction (10.8\%, black dot) within the 20–50\% conversion window exceeds the 10\% threshold (dashed line), and thus this parameter set is accepted into the dataset.\\
+
+This filtering retains parameter sets with significant accumulation of dimeric catalyst species (\emph{cat\textsubscript{2}}), which are labeled as \textbf{M2}. Dimer formation is known to introduce nonlinear catalyst dependence and alter the reaction order, generating a kinetic “fingerprint” distinct from the monomeric mechanism (\textbf{M1}) ~\cite{Rosner2001}. However, if the fraction of \emph{cat\textsubscript{2}} remains low, the bicatalytic pathway serves as a minor off-cycle reservoir with negligible effect on the overall catalytic flux ~\cite{Rai2024}. In such cases, the $P(t)$ profiles align with \textbf{M1} after rate constant adjustment, rendering \textbf{M2} indistinguishable within experimental noise ~\cite{Sahharova2023}.  
+Similarly, mechanisms with catalyst activation steps require criteria to ensure moderate accumulation of active species. For instance, in mechanism \textbf{M6}, parameter sets are retained only when the fraction of activated species (\emph{cat*} + \emph{cat*S}) constitutes 10–90\% of the total catalyst at 20\% conversion (Figure~\ref{fig:M6_criterion}).
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{data_generation/M6.pdf}
+    \caption{Example of filtering criterion for mechanism M6}
+    \label{fig:M6_criterion}
+\end{figure}
+
+This criterion window excludes scenarios with either instantaneous activation—rendering M6 indistinguishable from the core mechanism—or sluggish activation with minimal formation of active species. Restricting the active-catalyst fraction to 10–90 \% at 20\% conversion defines a regime with an observable induction period and stable steady-state population of active species. Such conditions have been identified by microkinetic modeling and continuous-addition kinetic elucidation (CAKE) experiments as prerequisites for extracting meaningful catalyst orders and speciation parameters ~\cite{Williams2023}. Similarly, mechanisms with catalyst deactivation steps require criteria to ensure moderate accumulation of active species. For example, in mechanism \textbf{M9}, a parameter set is accepted only if active species (\emph{cat} + \emph{catS}) remains between 50\% and 90\% of the initial catalyst at 50\% conversion, as shown in Figure~\ref{fig:M9_criterion}.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{data_generation/M9.pdf}
+    \caption{Example of filtering criterion for mechanism M9}
+    \label{fig:M9_criterion}
+\end{figure}
+
+
+According to Martínez-Carrión et al.\ (2019), rigorous kinetic methodologies such as variable-time normalization analysis (VTNA) reliably distinguish catalyst deactivation pathways only if the experimental kinetic data exhibit an intermediate, measurable decline in catalyst activity~\cite{MartinezCarrion2019}. Specifically, minimal ($<$10\%) or excessive ($>$50\%) losses in catalyst activity obscure the distinct kinetic signatures required for reliable parameter estimation. Thus, the \textbf{M9} filtering criterion was explicitly designed based on these considerations, selecting parameter sets that align precisely within this intermediate activity-loss window.
+
+\section{Numerical Integration and Solver Configuration}
+\label{sec:numerical_integration}
+
+Having defined the ODE representations in section~\ref{sec:ODE_formalism} and established a rigorous kinetic parameter sampling and filtering procedure (section~\ref{sec:parameter_space_sampling}–~\ref{sec:mechanism_specific_parameter_selection_criteria}), the next is the numerical integration of these ODE systems to generate concentration–time trajectories. Numerical integration for all catalytic mechanisms was performed using SciPy’s \texttt{solve\_ivp} function with the LSODA integration method. LSODA is an adaptive integrator capable of automatically detecting stiffness and dynamically switching between Adams methods (appropriate for non-stiff equations) and Backward Differentiation Formulas (BDF, suitable for stiff equations). For each valid parameter vector, the solver configuration is defined as follows:
+
+\begin{equation}
+\texttt{solve\_ivp}\left(\frac{d\mathbf{C}(t)}{dt} = \mathbf{f}(\mathbf{C}(t), \boldsymbol{\theta});\ 
+t \in [0, t_{\max}];\ 
+\mathbf{C}(0) = \mathbf{C}_0;\ \texttt{rtol}=10^{-6};\ \texttt{atol}=10^{-9} \right).
+\end{equation}
+
+Solver accuracy was controlled by setting a relative tolerance (\texttt{rtol}) of $10^{-6}$ and an absolute tolerance (\texttt{atol}) of $10^{-9}$. These tight tolerances were selected to minimize numerical errors and ensure strict mass and energy conservation across the wide kinetic parameter range investigated ($10^{-5}$ to $10^{5}$). Specifically, Goodwin et al. (2017) demonstrated that rigorous control of numerical tolerances is essential in chemical kinetic modeling to avoid artificial mass imbalances and energy drift, directly validating our choice of strict error settings~\cite{Goodwin2017}. Additionally, the solver’s maximum step size was explicitly restricted to 1.0 s, effectively mitigating numerical overshoot during rapid substrate conversions and abrupt catalyst activation or deactivation events. Stewart and Bair (2013) explicitly support the use of such step-size constraints to maintain numerical stability in highly reactive chemical systems~\cite{Stewart2013}.\\
+
+Parameter sets yielding solver failures, non-finite values, or NaNs  were discarded to maintain numerical stability and physical plausibility. This filtering criterion aligns with Rackauckas and Nie (2017), who advocate stringent rejection of non-physical or unstable numerical solutions in extensive parameter space explorations~\cite{Rackauckas2017}. The solver outputs were sampled at 5,000 uniform time points, providing adequate temporal resolution to capture rapid transient dynamics without excessive computational cost, as explicitly recommended by Pontrelli et al. (2022) in their guidelines for stiff biochemical kinetic models~\cite{Pontrelli2022}.
+
+\section{Initial Condition Design}
+\label{sec:initial_condition_design}
+
+The trajectories obtained in Section~\ref{sec:numerical_integration} are converted into fixed-size tensors appropriate for subsequent deep learning tasks by pairing each kinetic parameter vector with an ensemble of initial conditions. For every mechanism, a pool of thirty catalyst loadings is first generated by drawing:
+
+\begin{equation}
+\operatorname{cat}_0^{\text{tarin/val}} \;\sim\; \mathcal{U}(0.01,\,0.10)\quad\text{(mol fraction)}
+\end{equation}
+and sorting them in ascending order, thereby guaranteeing monotonicity that later facilitates indexing operations~\cite{Brown2017}.  Throughout the training and validation partitions the substrate and product are kept at their standard values,
+\(
+[S]_0 = 1.0,\ [P]_0 = 0,
+\)
+so that only the catalyst loading varies within the pool; such controlled variation in a single kinetic factor has been shown to sharpen the sensitivity of deep learning models to catalyst‐dependent rate laws~\cite{Esterby2020,Olsson2019}.\\
+
+For each kinetic parameter set, four distinct reaction trajectories are generated. The first three trajectories correspond to three distinct catalyst loadings—low, medium, and high—sampled from a predefined pool of thirty possible initial catalyst concentrations, while maintaining the standard initial conditions $(S_0,P_0)$. Subsequently, a fourth ``perturbed" trajectory is  generated by selecting one of these three catalyst loadings and initializing the reaction from a partially converted state. Specifically, the initial substrate concentration for this trajectory is randomly sampled as:
+
+
+\begin{equation}
+S_0^{(4)}\sim \mathcal{U}(0.4,\,0.8)
+\end{equation}
+with the product concentration set to its stoichiometric complement
+\(
+P_0^{(4)} = 1 - S_0^{(4)}.
+\)
+The inclusion of this partially converted initial state introduces realistic variability resembling mid-batch sampling and has been demonstrated to improve the generalisation of kinetic models to unseen conversion regimes~\cite{Rothenberg2024,Guo2024}.\\ 
+
+The test partition preserves the same four-trajectory structure but employs a distinct sampling strategy specifically designed to assess the extrapolation capability of the trained models. In this partition, three ``standard" trajectories again use the fixed initial substrate and product conditions ($[S]_0=1.0,\ [P]_0=0$), yet their catalyst loadings are sampled from three narrow intervals, chosen to represent catalyst concentrations that were infrequently encountered during model training:
+
+\begin{equation}
+\operatorname{cat}_0^{\text{test}} \sim
+\begin{cases}
+\mathcal{U}(0.01, 0.02), & \text{(low catalyst regime)} \\[4pt]
+\mathcal{U}(0.045, 0.055), & \text{(intermediate catalyst regime)} \\[4pt]
+\mathcal{U}(0.09, 0.10). & \text{(high catalyst regime)}
+\end{cases}
+\end{equation}
+
+The deliberate choice of catalyst loadings from these three narrowly bounded regimes forces the evaluation set to deviate from the densely sampled training region, introducing a controlled covariate condition shift. This design enables the test partition to interrogate whether the learned kinetic representations remain valid  under extrapolation to rarely or unseen catalyst regimes. Recent work has demonstrated that even state-of-the-art machine learning models—particularly in chemical kinetics and reaction modeling—tend to memorize rather than generalize kinetic patterns, failing to extrapolate beyond the training manifold.~\cite{Guo2024}. By evaluating under these rare catalyst loadings, the test partition offers a rigorous diagnostic of the model’s ability to infer underlying reaction rules rather than overfitting to training distributions.\\ 
+
+\section{Time-Resolved Tensor Construction}
+\label{sec:time_resolved_tensor_construction}
+
+The preceding section (Section~\ref{sec:initial_condition_design}) established a four‑trajectory ensemble for every valid kinetic parameter set, thereby embedding controlled variation in catalyst loading and conversion states into the dataset. Building upon this ensemble, the current subsection details the process by which each high-resolution trajectory is compressed into a fixed-size tensor suitable for input into deep neural networks.\\
+
+All generated trajectories are first numerically integrated over a dense temporal comprising $5{,}000$ uniformly spaced points spanning the complete integration interval ($t \in [0, t_{\max}]$). Subsequently, these high-resolution trajectories undergo uniform temporal subsampling, reducing the number of retained data points to a computationally efficient cardinality:
+
+\begin{equation}
+N_t=
+\begin{cases}
+21 & \text{(training / validation)},\\[4pt]
+7  & \text{(test)},
+\end{cases}
+\end{equation}
+where the initial time point $t=0$ is always retained, while the remaining $N_t-1$ points are sampled without replacement from the interior of the integration interval. This approach ensures accurate capture of rapid transient behaviors at early times, which frequently contain critical rate-determining information \cite{Goodwin2017}.\\
+
+The more aggressive subsampling applied to the test partition (seven data point) deliberately mimics the sparse and noisy time series data typically encountered in in-situ spectroscopic monitoring, where measurement frequency is restricted by instrument duty cycles~\cite{Lim2021}. Evaluating model performance under these challenging conditions assesses robustness against covariate shift and observation sparsity, effectively testing generalization beyond the dense, low-noise conditions encountered during training~\cite{Appleby2024}.\\
+
+Each subsampled trajectory consists of columns representing time, substrate concentration, and product concentration. These three columns are then stacked across the four trajectories associated with the same kinetic parameter vector, resulting in:
+
+\begin{equation}
+\mathbf{X}_{2} \;=\;
+\bigl[
+\{t,S,P\}^{\!\top}_{1}\!,
+\;
+\{t,S,P\}^{\!\top}_{2}\!,
+\;
+\{t,S,P\}^{\!\top}_{3}\!,
+\;
+\{t,S,P\}^{\!\top}_{4}
+\bigr]
+\;\in\;
+\mathbb{R}^{\,N_t\times 12}.
+\end{equation}
+Each time column has been rescaled to the unit interval using a simple min–max transformation:
+\begin{equation}
+t^{\mathrm{norm}} = \frac{t - \min(t)}{\max(t)-\min(t)},
+\end{equation}
+thereby removing the absolute scale of the integration window from the learning task. Min–max scaling accelerates gradient-based optimization, mitigates internal covariate shift, and reduces the propagation of experimental noise; recent kinetic surrogate benchmarks have demonstrated that this scaling reduces convergence times by nearly 50\% compared to unscaled inputs, while simultaneously enhancing predictive robustness \cite{Dong2025}. Conversely, substrate and product concentrations remain in their physical units, enabling the neural network to learn chemically meaningful absolute scales.
+
+\section{Final Dataset Integration}
+\label{sec:final_dataset_integration}
+
+In previous sections, mechanistically valid kinetic trajectories were constructed and compressed into fixed-size, time-resolved tensors. The concluding step in the simulation data generation workflow concatenates these mechanism-specific samples into training, validation, and test sets, while normalising metadata and exporting the results in a format suitable for training downstream classification models.\\
+
+All samples derived from the twenty mechanisms are first padded so that every kinetic parameter vector \( \boldsymbol{\theta} \) attains the uniform maximum length:
+\begin{equation}
+d_{\max} = \max_{i \in [1,20]} d_i = 6,
+\end{equation}
+where \( d_i \) denotes the intrinsic dimensionality of mechanism \( M_i \). Padding with \texttt{NaN} preserves parameter dimensionality without introducing numerical bias. The catalyst-loading vector \( \mathbf{x}_1 \in \mathbb{R}^{4} \) remains unchanged, while the concentration tensor \( \mathbf{X}_2 \in \mathbb{R}^{N_t \times 12} \) undergoes min–max scaling in its time columns, retaining substrate and product concentrations in their physical units. Mechanism labels are encoded as one-hot vectors \( \mathbf{y} \in \{0,1\}^{20} \), framing the downstream neural-network task as a twenty-class classification.\\
+
+After aggregation, the corpus sizes satisfy  \( N_{\text{train}} = 4{,}950{,}000 \), \( N_{\text{val}} = 50{,}000 \), and \( N_{\text{test}} = 100{,}000 \) samples, with corresponding tensor dimensions given by:
+
+\[
+\begin{aligned}
+&\mathbf{x}_1^{\text{train}} \in \mathbb{R}^{\,4\,950\,000\times 4}, &
+&\mathbf{X}_2^{\text{train}} \in \mathbb{R}^{\,4\,950\,000\times 21\times 12}, &
+&\mathbf{y}^{\text{train}} \in \mathbb{R}^{\,4\,950\,000\times 20}, \\[0.5em]
+&\mathbf{x}_1^{\text{val}} \in \mathbb{R}^{\,50\,000\times 4}, &
+&\mathbf{X}_2^{\text{val}} \in \mathbb{R}^{\,50\,000\times 21\times 12}, &
+&\mathbf{y}^{\text{val}} \in \mathbb{R}^{\,50\,000\times 20}, \\[0.5em]
+&\mathbf{x}_1^{\text{test}} \in \mathbb{R}^{\,100\,000\times 4}, &
+&\mathbf{X}_2^{\text{test}} \in \mathbb{R}^{\,100\,000\times 7\times 12}, &
+&\mathbf{y}^{\text{test}} \in \mathbb{R}^{\,100\,000\times 20}.
+\end{aligned}
+\]
+
+\vspace{0.2cm}
+Figure~\ref{fig:kinetic_profile_sample} presents a randomly selected entry from the training corpus. Four kinetic profiles are displayed—three initiated from the standard substrate concentration with distinct catalyst loadings, and one from a partially converted state—all originating from mechanism \textbf{M9}. The example demonstrates the diversity of kinetic behaviour captured by the dataset through constructed initial-state variations.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{data_generation/kinetic_profile_sample.pdf}
+    \caption{Kinetic trajectories for mechanism M9 under different initial conditions.}
+    \label{fig:kinetic_profile_sample}
+\end{figure}
+
 
 % -----------------------------------------------------------------------------
 
@@ -523,7 +621,7 @@ One good way of doing this is to have a single chapter consisting of three parts
 Alternatively, you might want to divide this content into two chapters: a penultimate chapter with a title such as ``Further Work" and then a final chapter ``Conclusions". Again, there is no hard and fast rule, we trust you to make the right decision. 
 
 And this, the final paragraph of this thesis template, is just a bunch of citations, added to show how to generate a BibTeX bibliography. Sources that have been randomly chosen to be cited here include:
-\cite{miller_etal_2018_clojure,webber_marwan_2015,touretzky_2013_lisp,eckmann_etal_1987,marwan_2011,vach_2015,shiller_2017,vytelingum_2006,tesfatsion_2002,rust_etal_1992}.
+~\cite{miller_etal_2018_clojure,webber_marwan_2015,touretzky_2013_lisp,eckmann_etal_1987,marwan_2011,vach_2015,shiller_2017,vytelingum_2006,tesfatsion_2002,rust_etal_1992}.
 
 
 
@@ -541,7 +639,7 @@ And this, the final paragraph of this thesis template, is just a bunch of citati
 %   approach used below, with the databased being dissertation.bib.
 %
 % Either way, the each entry has a key (or identifier) which can be used
-% in the main matter to cite it, e.g., \cite{X}, \cite[Chapter 2}{Y}.
+% in the main matter to cite it, e.g., ~\cite{X}, ~\cite[Chapter 2}{Y}.
 
 \backmatter
 

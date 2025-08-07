@@ -36,12 +36,15 @@
 
 % load base class, then general-purpose packages
 
-\LoadClass[10pt,a4paper,twoside]{book}
+\LoadClass[10pt,a4paper,oneside]{book}
 
 % http://www.ctan.org/tex-archive/macros/latex/required/graphics
 \RequirePackage{graphicx}
 % http://www.ctan.org/tex-archive/macros/latex/required/amslatex
 \RequirePackage{amsmath}
+
+\RequirePackage{float}
+
 \RequirePackage{amssymb}
 % http://www.ctan.org/tex-archive/macros/latex/contrib/adjustbox
 \RequirePackage{adjustbox}
