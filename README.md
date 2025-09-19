@@ -25,10 +25,14 @@ The project is designed to address limitations of classical kinetic analysis (in
   – one partially converted start with $S_0 \sim \mathcal{U}(0.4, 0.8)$, $P_0 = 1 - S_0$.  
 - **Temporal subsampling**: 21 points for train/val; 7 points for test (sparse regime). Time columns min–max scaled to $[0,1]$; concentrations kept in physical units.  
 
-### 3) Dataset Scale (after filtering and packing)
-- Train: 4,950,000 samples  
-- Validation: 50,000 samples  
-- Test: 100,000 samples  
+### 3) Dataset Availability (after filtering and packing)
+The full training, validation, and test datasets are hosted externally due to size constraints. All files can be accessed and downloaded from OneDrive via the following link:
+[🔗 Download Data (OneDrive)](https://1drv.ms/f/s!AtSPOuyiZcMKgQJpXgPnEHD2dFKX?e=dfRsQG)
+
+The repository contains:
+- Training set: 4.95M labelled samples
+- Validation set: 50k samples
+- Test set: 100k samples (sparse subsampling, distinct parameter sets)
 - **Per sample input**:  
   – Static vector $x_1 \in \mathbb{R}^4$ (four loadings)  
   – Dynamic block $X_2 \in \mathbb{R}^{N \times 12}$ (time, $S$, $P$ for four trajectories)  
