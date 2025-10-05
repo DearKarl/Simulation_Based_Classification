@@ -1,16 +1,18 @@
-# Simulation‑Based Mechanism Classification
+# Simulation-Based Deep Learning for Mechanism Classification
 
-A multimodal deep-learning framework for classifying catalytic reaction mechanisms from simulated concentration–time profiles
+A multimodal neural-network framework that learns catalytic reaction mechanisms from simulated concentration–time data by combining static descriptors and dynamic trajectories.
 
 ## Abstract
 
 This repository implements a workflow for simulation‑based mechanism classification in complex catalytic systems. It comprises (i) a simulator that generates labelled kinetic profiles for 20 reaction mechanisms (M1–M20); (ii) a two‑branch neural architecture that fuses static initial‑condition descriptors with dynamic time‑series; and (iii) a comparative study of four feature‑fusion strategies—late averaging, attention‑based reweighting, gate‑weighted additive fusion, and Hadamard (bilinear) fusion.
 
 ## Project Goal
-The project is designed to address limitations of classical kinetic analysis (initial‑rate methods, linearising transforms, integrated rate laws) when networks feature multiple resting states, activation/deactivation, or time‑dependent speciation. By training on diverse synthetic corpora, the classifier learns discriminative temporal features (e.g., induction, saturation, deactivation plateaus) that reliably fingerprint mechanism classes.
+
+The project aims to overcome the limitations of classical kinetic analysis—such as initial-rate methods, linearising transformations, and integrated rate laws—which struggle to describe systems with multiple catalyst resting states. The neural network is trained on diverse simulation-generated concentration–time profiles, allowing it to learn complex temporal behaviours and accurately classify catalytic mechanisms beyond the scope of traditional kinetic models.
 
 ## Highlights
-- **End-to-end pipeline**: ODE formalism → parameter sampling and mechanism-specific filtering → LSODA integration → time-resolved tensor construction → model training and evaluation.
+
+- **Simulation-based dataset generation:** ODE formalism → parameter sampling and mechanism-specific filtering → LSODA integration → time-resolved tensor construction → model training and evaluation.
 - **Data Generation**: millions of labelled samples, with controlled covariate shift and sparse test sampling to stress-test generalisation. 
 - **Multimodal classifier**: a static branch (initial conditions, e.g., catalyst loading) and a dynamic branch (trajectories of S and P) fused by differebr strategies. 
 - **Evaluation**: top-1/top-3 accuracy, mean cross-entropy, entropy-based uncertainty, 95% credible-set size distributions, and confusion analyses to separate model errors from fundamental identifiability limits. 
