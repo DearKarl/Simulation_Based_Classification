@@ -1,5 +1,8 @@
 # Simulation‑Based Mechanism Classification
-### Automatic identification of reaction mechanisms from concentration–time profiles using simulated data and multimodal deep learning.
+
+A multimodal deep-learning framework for classifying catalytic reaction mechanisms from simulated concentration–time profiles
+
+## Abstract
 
 This repository implements a workflow for simulation‑based mechanism classification in complex catalytic systems. It comprises (i) a simulator that generates labelled kinetic profiles for 20 reaction mechanisms (M1–M20); (ii) a two‑branch neural architecture that fuses static initial‑condition descriptors with dynamic time‑series; and (iii) a comparative study of four feature‑fusion strategies—late averaging, attention‑based reweighting, gate‑weighted additive fusion, and Hadamard (bilinear) fusion.
 
