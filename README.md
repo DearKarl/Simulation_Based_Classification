@@ -67,8 +67,37 @@ Simulation_Based_Classification/
 │
 └── catalytic_mechanisms_types_M1_to_M20.pdf      # Mechanism overview diagram
 ```
+## Key Results
+
+### Classification Accuracy
+
+| Model | Top-1 Accuracy ↑ | Top-3 Accuracy ↑ |
+|:-----------------------------------|:----------------:|:----------------:|
+| **Baseline (Late-Average Fusion)** | 81.41 % | 97.40 % |
+| **Attention-Based Fusion**         | 85.31 % | 99.27 % |
+| **Gate-Weighted Additive Fusion**  | 87.79 % | 99.58 % |
+| **Hadamard (Bilinear) Fusion**     | 88.82 %** | 99.87 % |
+
+### Uncertainty Analysis
+
+| Model | Entropy Mean ↓ | Entropy Median ↓ | Entropy Standard Deviation |
+|:-----------------------------------|:----------------:|:----------------:|:----------------:|
+| **Baseline (Late-Average Fusion)** | 2.023995 | 1.992812 | 0.160904 |
+| **Attention-Based Fusion**         | 0.496192 | 0.368457 | 0.453144 |
+| **Gate-Weighted Additive Fusion**  | 0.382881 | 0.188617 | 0.423306 |
+| **Hadamard (Bilinear) Fusion**     | 0.313845 | 0.110076 | 0.384534 |
+
+### Credible Set Size Distribution
+
+| Model | Credible Set Size = 1 | = 2 | = 3 | = 4 | = 5 | ≥ 6 |
+|:-----------------------------------|:----------------:|:----------------:|:----------------:|:----------------:|:----------------:|:----------------:|
+| **Baseline (Late-Average Fusion)** | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 0.00 % | 100.00 % |
+| **Attention-Based Fusion**         | 40.25 % | 30.09 % | 14.70 % | 10.27 % | 3.36 % | 1.32 % |
+| **Gate-Weighted Additive Fusion**  | 52.41 % | 26.29 % | 11.11 % | 7.96 % | 1.69 % | 0.55 % |
+| **Hadamard (Bilinear) Fusion**     | 59.19 % | 24.63 % | 10.23 % | 4.89 % | 0.88 % | 0.18 % |
 
 ## Dataset Availability
+
 The full training, validation, and test datasets are hosted externally due to size constraints. All files can be accessed and downloaded from OneDrive via the following link:
 [🔗 Download Data (OneDrive)](https://1drv.ms/f/s!AtSPOuyiZcMKgQJpXgPnEHD2dFKX?e=dfRsQG)
 
@@ -81,9 +110,11 @@ The repository contains:
   – Dynamic block $X_2 \in \mathbb{R}^{N \times 12}$ (time, $S$, $P$ for four trajectories)  
 
 ## Case Studies
+
 This study builds on the 2023 *Nature* paper ["Organic reaction mechanism classification using machine learning"](https://www.nature.com/articles/s41586-022-05639-4) and explores alternative SBI methods as outlined in the 2024 arXiv review ["A Comprehensive Guide to Simulation-based Inference in Computational Biology"](https://arxiv.org/abs/2409.19675).
 
 ## References
+
 - Burés & Larrosa (2023). *Organic reaction mechanism classification using ML.* *Nature*, 613: 689–695.
 - Schwarz (1978). *Estimating the dimension of a model.* *The Annals of Statistics*, 6(2): 461–464. DOI: 10.1214/aos/1176344136.
 - Gutenkunst *et al.* (2007). *Universally sloppy parameter sensitivities in systems biology models.* *PLoS Computational Biology*, 3(10): e189. DOI: 10.1371/journal.pcbi.0030189.
