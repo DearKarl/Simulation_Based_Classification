@@ -8,7 +8,7 @@ This repository implements a workflow for simulation‑based mechanism classific
 
 ## Project Goal
 
-The project aims to overcome the limitations of classical kinetic analysis—such as initial-rate methods, linearising transformations, and integrated rate laws—which struggle to describe systems with multiple catalyst resting states. The neural network is trained on diverse simulation-generated concentration–time profiles, allowing it to learn complex temporal behaviours and accurately classify catalytic mechanisms beyond the scope of traditional kinetic models.
+The project aims to overcome the limitations of classical kinetic analysis—such as initial-rate methods, linearising transformations, and integrated rate laws—which struggle to describe systems with multiple catalyst resting states. The neural network is trained on diverse simulation-generated concentration–time profiles, allowing it to learn complex temporal behaviours and accurately classify catalytic mechanisms beyond the scope of traditional kinetic analysis methods.
 
 ## Highlights
 
