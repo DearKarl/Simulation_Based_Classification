@@ -22,50 +22,50 @@ The project aims to overcome the limitations of classical kinetic analysis—suc
 ```
 Simulation_Based_Classification/
 │
-├── ODE_solver_exploration.ipynb
+├── ODE_solver_exploration.ipynb                  # Exploration of LSODA solver behaviour
 │
-├── simulation_data_generation
-│   ├── simulated_kinetic_profiles_example.ipynb               
+├── simulation_data_generation                    # Simulation scripts and kinetic dataset generation
+│   ├── simulated_kinetic_profiles_example.ipynb
 │   └── simulation_data_generation.ipynb
 │
-├── model_architecture
+├── model_architecture_overview                   # Visual overview of the model architecture
 │   ├── model_average_fusion_arch
 │   ├── model_attention_fusion_arch
 │   ├── model_gating_fusion_arch
 │   └── model_hadamard_fusion_arch
 │
-├── train_model                  
+├── train_model                                   # Trained models with associated training notebooks and saved weights
 │   ├── trained_model_baseline
-│       ├── M1_20_model_classification_baseline
-│       ├── mechanism_classifier_baseline_model.ipynb
-│       ├── training_history_baseline.pkl
-│       └── best_model_weights_baseline.index
-│
+│   │   ├── M1_20_model_classification_baseline
+│   │   ├── mechanism_classifier_baseline_model.ipynb
+│   │   ├── training_history_baseline.pkl
+│   │   └── best_model_weights_baseline.index
+│   │
 │   ├── trained_model_attention
-│       ├── M1_20_model_classification_attention
-│       ├── mechanism_classifier_attention_model.ipynb
-│       ├── training_history_attention.pkl
-│       └── best_model_weights_attention.index
-│
+│   │   ├── M1_20_model_classification_attention
+│   │   ├── mechanism_classifier_attention_model.ipynb
+│   │   ├── training_history_attention.pkl
+│   │   └── best_model_weights_attention.index
+│   │
 │   ├── trained_model_gatefusion
-│       ├── M1_20_model_classification_gatefusion
-│       ├── mechanism_classifier_gatefusion_model.ipynb
-│       ├── training_history_gatefusion.pkl
-│       └── best_model_weights_gatefusion.index
-│
+│   │   ├── M1_20_model_classification_gatefusion
+│   │   ├── mechanism_classifier_gatefusion_model.ipynb
+│   │   ├── training_history_gatefusion.pkl
+│   │   └── best_model_weights_gatefusion.index
+│   │
 │   └── trained_model_hadamard
 │       ├── M1_20_model_classification_hadamard
 │       ├── mechanism_classifier_hadamard_model.ipynb
 │       ├── training_history_hadamard.pkl
 │       └── best_model_weights_hadamard.index
 │
-├── model_evaluation                      
+├── model_evaluation                              # Model performance evaluation and uncertainty analysis notebooks
 │   ├── euclidean_distance_analysis.ipynb
 │   ├── model_performance_evaluation.ipynb
 │   ├── simulation_distribution_evaluation.ipynb
 │   └── training_history_plots.ipynb
 │
-└── catalytic_mechanisms_types_M1_to_M20.pdf
+└── catalytic_mechanisms_types_M1_to_M20.pdf      # Mechanism overview diagram
 ```
 
 ## Dataset Availability
