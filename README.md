@@ -1,4 +1,4 @@
-# Simulation-Based Deep Learning for Mechanism Classification
+# Simulation-Based Deep Learning for Chemical Reaction Mechanism Classification
 
 A multimodal neural-network framework that learns catalytic reaction mechanisms from simulated concentration–time data by combining static descriptors and dynamic trajectories.
 
