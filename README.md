@@ -12,25 +12,63 @@ The project aims to overcome the limitations of classical kinetic analysis—suc
 
 ## Highlights
 
-- **Simulation-based dataset generation:** ODE formalism → parameter sampling and mechanism-specific filtering → LSODA integration → time-resolved tensor construction → model training and evaluation.
-- **Data Generation**: millions of labelled samples, with controlled covariate shift and sparse test sampling to stress-test generalisation. 
-- **Multimodal classifier**: a static branch (initial conditions, e.g., catalyst loading) and a dynamic branch (trajectories of S and P) fused by differebr strategies. 
-- **Evaluation**: top-1/top-3 accuracy, mean cross-entropy, entropy-based uncertainty, 95% credible-set size distributions, and confusion analyses to separate model errors from fundamental identifiability limits. 
+- **Simulation-based dataset generation:** millions of labelled samples are produced by numerically integrating twenty ODE-defined catalytic mechanisms under diverse kinetic parameters and initial conditions. 
+- **Multimodal neural architecture:** A two-branch neural network combines a dense encoder for static catalyst descriptors with stacked LSTMs for dynamic trajectories, enabling the model to learn temporal features such as induction, saturation, and deactivation from full concentration–time data.
+- **Feature-fusion strategies:** The neural architecture explores multiple deep learning fusion schemes, including attention mechanisms, gate-weighted additive fusion, and Hadamard (bilinear) coupling, to optimise feature integration within the network and strengthen cross-modal representation learning.
+- **Comprehensive model evaluation:** The models are evaluated through top-1 and top-3 accuracy, cross-entropy loss, predictive entropy, and 95% credible-set distributions, complemented by confusion-matrix analysis to differentiate model errors from intrinsic mechanistic non-identifiability.
 
-## Simulation and Inference Framework
-### 1) Mechanistic Simulator
-- **ODE formalism**: Each mechanism $M_i$ is encoded as mass-action ODEs  
-  $\frac{dC}{dt} = F(C; \theta)$, with species $[S], [P], [\text{cat}], [\text{cat}S], \dots$  
-- **Parameter sampling**: Rate constants sampled log-uniformly over $10^{-5}$–$10^5$ and rounded to 3 s.f.; additional mechanism-specific post-filters ensure informative kinetics (e.g., minimum deactivation, dimer accumulation).  
-- **Numerical integration**: SciPy LSODA with \texttt{rtol=1e-6}, \texttt{atol=1e-9}, time horizon $t \in [0, 100]$, dense grid of 5,000 points; non-physical or unstable solutions rejected.  
+## Project Structure
 
-### 2) Initial Conditions and Data Design
-- Per parameter set: four trajectories  
-  – three at standard $[S]_0 = 1.0$, $[P]_0 = 0$ with distinct catalyst loadings sampled from $[0.01, 0.10]$;  
-  – one partially converted start with $S_0 \sim \mathcal{U}(0.4, 0.8)$, $P_0 = 1 - S_0$.  
-- **Temporal subsampling**: 21 points for train/val; 7 points for test (sparse regime). Time columns min–max scaled to $[0,1]$; concentrations kept in physical units.  
+```
+Simulation_Based_Classification/
+│
+├── ODE_solver_exploration.ipynb
+│
+├── simulation_data_generation
+│   ├── simulated_kinetic_profiles_example.ipynb               
+│   └── simulation_data_generation.ipynb
+│
+├── model_architecture
+│   ├── model_average_fusion_arch
+│   ├── model_attention_fusion_arch
+│   ├── model_gating_fusion_arch
+│   └── model_hadamard_fusion_arch
+│
+├── train_model                  
+│   ├── trained_model_baseline
+│       ├── M1_20_model_classification_baseline
+│       ├── mechanism_classifier_baseline_model.ipynb
+│       ├── training_history_baseline.pkl
+│       └── best_model_weights_baseline.index
+│
+│   ├── trained_model_attention
+│       ├── M1_20_model_classification_attention
+│       ├── mechanism_classifier_attention_model.ipynb
+│       ├── training_history_attention.pkl
+│       └── best_model_weights_attention.index
+│
+│   ├── trained_model_gatefusion
+│       ├── M1_20_model_classification_gatefusion
+│       ├── mechanism_classifier_gatefusion_model.ipynb
+│       ├── training_history_gatefusion.pkl
+│       └── best_model_weights_gatefusion.index
+│
+│   └── trained_model_hadamard
+│       ├── M1_20_model_classification_hadamard
+│       ├── mechanism_classifier_hadamard_model.ipynb
+│       ├── training_history_hadamard.pkl
+│       └── best_model_weights_hadamard.index
+│
+├── model_evaluation                      
+│   ├── euclidean_distance_analysis.ipynb
+│   ├── model_performance_evaluation.ipynb
+│   ├── simulation_distribution_evaluation.ipynb
+│   └── training_history_plots.ipynb
+│
+└── catalytic_mechanisms_types_M1_to_M20.pdf
+```
 
-### 3) Dataset Availability (after filtering and packing)
+## Dataset Availability
 The full training, validation, and test datasets are hosted externally due to size constraints. All files can be accessed and downloaded from OneDrive via the following link:
 [🔗 Download Data (OneDrive)](https://1drv.ms/f/s!AtSPOuyiZcMKgQJpXgPnEHD2dFKX?e=dfRsQG)
 
@@ -42,16 +80,6 @@ The repository contains:
   – Static vector $x_1 \in \mathbb{R}^4$ (four loadings)  
   – Dynamic block $X_2 \in \mathbb{R}^{N \times 12}$ (time, $S$, $P$ for four trajectories)  
 
-### 4) Classifier Architecture
-- **Static branch**: Dense encoder (ReLU, 64-dim) for $x_1$.  
-- **Dynamic branch**: stacked LSTM–LSTM encoder (64-dim) for $X_2$.  
-- **Fusion strategies (comparative)**:  
-  1. *Baseline Late-Average* – independent branch posteriors averaged at output level.  
-  2. *Attention-Based Fusion* – concatenate embeddings → channel-wise attention (softmax) → fusion head.  
-  3. *Gate-Weighted Additive* – project each modality → sigmoid gates → weighted sum → fusion head.  
-  4. *Hadamard (Bilinear)* – project to shared space → element-wise product → fusion head.  
-- **Training**: cross-entropy, Adam (1e-4) optimiser, random time subsampling (always keep $t=0$), optional Gaussian noise on $S, P$ (not on time).
-  
 ## Case Studies
 This study builds on the 2023 *Nature* paper ["Organic reaction mechanism classification using machine learning"](https://www.nature.com/articles/s41586-022-05639-4) and explores alternative SBI methods as outlined in the 2024 arXiv review ["A Comprehensive Guide to Simulation-based Inference in Computational Biology"](https://arxiv.org/abs/2409.19675).
 
